@@ -1,9 +1,3 @@
-<?php
-    include 'core/init.php';
-    $user_id = $_SESSION['user_id'];
-    $user = $getFromU->userData($user_id);
-?>
-
 <!--
    This template created by Meralesson.com 
    This template only use for educational purpose 
@@ -31,7 +25,7 @@
 			<ul>
 				<li><a href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 				<li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-				<li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+				<li id = "messagePop"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
 			</ul>
 		</div><!-- nav left ends-->
 
@@ -44,12 +38,12 @@
 					</div>
 				</li>
 
-				<li class="hover"><label class="drop-label" for="drop-wrap1"><img src="<?php echo $user->profileImage; ?>"/></label>
+				<li class="hover"><label class="drop-label" for="drop-wrap1"><img src="PROFILE-IMAGE"/></label>
 				<input type="checkbox" id="drop-wrap1">
 				<div class="drop-wrap">
 					<div class="drop-inner">
 						<ul>
-							<li><a href="<?php echo $user->username; ?>"><?php echo $user->username; ?></a></li>
+							<li><a href="PROFILE-LINK>">USERNAME</a></li>
 							<li><a href="settings/account">Settings</a></li>
 							<li><a href="includes/logout.php">Log out</a></li>
 						</ul>
@@ -76,19 +70,19 @@
 			<div class="info-inner">
 				<div class="info-in-head">
 					<!-- PROFILE-COVER-IMAGE -->
-					<img src="<?php echo $user->profileCover; ?>"/>
+					<img src="PROFILE-COVER"/>
 				</div><!-- info in head end -->
 				<div class="info-in-body">
 					<div class="in-b-box">
 						<div class="in-b-img">
 						<!-- PROFILE-IMAGE -->
-							<img src="<?php echo $user->profileImage; ?>"/>
+							<img src="PROFILE-IMAGE"/>
 						</div>
 					</div><!--  in b box end-->
 					<div class="info-body-name">
 						<div class="in-b-name">
-							<div><a href="<?php echo $user->screenName; ?>"><?php echo $user->screenName; ?></a></div>
-							<span><small><a href="<?php echo $user->username; ?>">@<?php echo $user->username; ?></a></small></span>
+							<div><a href="PROFILE-LINK">SCREEN-NAME</a></div>
+							<span><small><a href="PROFILE-LINK">@USERNAME</a></small></span>
 						</div><!-- in b name end-->
 					</div><!-- info body name end-->
 				</div><!-- info in body end-->
@@ -107,7 +101,7 @@
 								FOLLOWING
 							</div>
 							<div class="num-body">
-								<span class="count-following"><?php echo $user->following; ?></span>
+								<span class="count-following">10</span>
 							</div>
 						</div>
 						<div class="num-box">
@@ -115,7 +109,7 @@
 								FOLLOWERS
 							</div>
 							<div class="num-body">
-								<span class="count-followers"><?php echo $user->followers; ?></span>
+								<span class="count-followers">10</span>
 							</div>
 						</div>	
 					</div><!-- mumber wrapper-->
@@ -137,7 +131,7 @@
 						 <div class="tweet-h-left">
 						 	<div class="tweet-h-img">
 						 	<!-- PROFILE-IMAGE -->
-						 		<img src="<?php echo $user->profileImage; ?>"/>
+						 		<img src="PROFILE-IMAGE"/>
 						 	</div>
 						 </div>
 						 <div class="tweet-body">
@@ -201,3 +195,6 @@
 </body>
 
 </html>
+<?php
+    #video 68--> 3:32
+?>
