@@ -26,9 +26,10 @@
 					$error = 'email already in use';
 				}
 				else{
-					$user_id = $getFromU->register($email, $password, $screenName);
+					//$user_id = $getFromU->register($email, $password, $screenName);
+					$user_id = $getFromU->create('users', array('email' => $email, 'password' => md5($password), 'screenName' => $screenName, 'profileImage' => 'assets/images/defaultProfileImage.png', 'profileCover' => 'assets/images/defaultCoverImage.png'));
 					$_SESSION['user_id'] = $user_id; 
-					//$getFromU->create('users', array('email' => $email, 'password' => md5($password), 'screenName' => $screenName), 'profileImage' => 'assets/images/defaultProfileImage.png', 'profileCover' => 'assets/images/defaultCoverImage.png')
+
 					header('Location: includes/signup.php?step=1');
 				}
 			}

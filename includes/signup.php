@@ -5,15 +5,17 @@
     if(isset($_GET['step']) === true && empty($_GET['step']) === false){
         if(isset($_POST['next'])){
             $username = $getFromU->checkInput($_POST['username']);
-			$getFromU->update('users', $user_id, array('username' => $username));
+			//$getFromU->update('users', $user_id, array('username' => $username));
             if(!empty($username)){
                 if(strlen($username) > 20){
                     $error = 'user name length must be between 6-20';
                 }
                 else if($getFromU->checkUsername($username) === true){
+					//echo '1';
                     $error = 'user name already in use';
                 }
                 else{
+					//echo '2';
 					$getFromU->update('users', $user_id, array('username' => $username));
 					header('Location: signup.php?step=2');
                 }
