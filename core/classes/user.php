@@ -40,7 +40,7 @@
         public function logout(){
             $_SESSION = array();
             session_destroy();
-            header('Location: ../index.php');
+            header('Location: '.BASE_URL.'index.php');
         }
 
         public function register($email, $password, $screenName){
@@ -99,6 +99,17 @@
             }
         }
 
+        public function userIdByUsername($username){
+            $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE `username` = :username");
+            $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_OBJ);
+            return $user->user_id;
+        }
+
+        public function loggedIn(){
+            return (isset($_SESSION['user_id'])) ? true:false;
+        }
         public function checkUsername($username){
             $stmt = $this->pdo->prepare("SELECT `username` FROM `users` WHERE `username` = :username");
             $stmt->bindParam(":username",$username, PDO::PARAM_STR);
