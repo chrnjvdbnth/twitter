@@ -3,7 +3,6 @@
 		$screenName = $_POST['screenName'];
 		$password = $_POST['password'];
 		$email = $_POST['email'];
-
 		if(empty($screenName) || empty($email) || empty($password)){
 			$error = 'all fields required';
 		}
@@ -11,7 +10,6 @@
 			$email = $getFromU->checkInput($email);
 			$password = $getFromU->checkInput($password);
 			$screenName = $getFromU->checkInput($screenName);
-
 			if(!filter_var($email)){
 				$error = 'invalid email format';
 			}
@@ -27,10 +25,8 @@
 				}
 				else{
 					//$user_id = $getFromU->register($email, $password, $screenName);
-					//$user_id = 
-					$getFromU->create('users', array('email' => $email, 'password' => md5($password), 'screenName' => $screenName, 'profileImage' => 'assets/images/defaultProfileImage.png', 'profileCover' => 'assets/images/defaultCoverImage.png'));
-					//$_SESSION['user_id'] = $user_id; 
-
+					$user_id = $getFromU->create('users', array('email' => $email, 'password' => md5($password), 'screenName' => $screenName, 'profileImage' => 'assets/images/defaultProfileImage.png', 'profileCover' => 'assets/images/defaultCoverImage.png'));
+					$_SESSION['user_id'] = $user_id; 
 					header('Location: includes/signup.php?step=1');
 				}
 			}

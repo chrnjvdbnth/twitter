@@ -13,21 +13,25 @@
 		$newPassword	= $_POST['newPassword'];
 		$rePassword		= $_POST['rePassword'];
 		$error          = array();
-
+		
 		if (!empty($currentPwd)  &&  !empty($newPassword)  &&  !empty($rePassword)) {
 			if($getFromU->checkPassword($currentPwd) === true){
 				if (strlen($newPassword) < 6) {
 					$error['newPassword'] = "password is too short!";
-				}else if($newPassword != $rePassword){
-					$error['rePassword']  =  "password does not match";
-				}else{
-					$getFromU->update('users',$user_id,array('password' => $newPassword));
-					header('Location: '.BASE_URL.'$user->username');
 				}
-			}else{
+				else if($newPassword != $rePassword){
+					$error['rePassword']  =  "password does not match";
+				}
+				else{
+					$getFromU->update('users',$user_id,array('password' => md5($newPassword)));
+					header('Location: '.BASE_URL.$user->username);
+				}
+			}
+			else{
 				$error['currentPwd'] = "Password is incorrect!";
 			}
-		}else{
+		}
+		else{
 			$error['fields'] = "All fields are required!";
 		}
 	}

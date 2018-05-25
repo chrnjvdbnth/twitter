@@ -151,12 +151,13 @@
         }
 
         public function checkPassword($password){
-            $stmt = $this->pdo->prepare("SELECT 'password' FROM 'users' WHERE 'password' = :password");
-            $stmt->bindParam(":password", $password,PDO::PARAM_STR);
+            $password=md5($password);
+            $stmt = $this->pdo->prepare("SELECT `password` FROM `users` WHERE `password`=:password");
+            $stmt->bindParam(":password",$password,PDO::PARAM_STR);
             $stmt->execute();
 
             $count = $stmt->rowCount();
-            if($count > 0){
+            if($count>0){
                 return true;
             }else{
                 return false;
