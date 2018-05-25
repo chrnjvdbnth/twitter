@@ -99,6 +99,10 @@
             }
         }
 
+        public function loggedIn(){
+            return (isset($_SESSION['user_id'])) ? true:false;
+        }
+
         public function userIdByUsername($username){
             $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE `username` = :username");
             $stmt->bindParam(":username", $username, PDO::PARAM_STR);
@@ -107,9 +111,32 @@
             return $user->user_id;
         }
 
-        public function loggedIn(){
-            return (isset($_SESSION['user_id'])) ? true:false;
+        public function uploadImage($file){
+            $filename   = basename($file['name']);
+            $fileTmp    = $file['tmp_name'];
+            $fileSize   = $file['size'];
+            $error      = $file['error'];
+
+            $ext  = explode('.', $filename);
+            $ext  = strtolower(end($ext));
+            $allowed_ext = array('jpg', 'png', 'jpeg');
+
+            if(in_array($ext, $allowed_ext) === true){
+                if($error === 0){
+                    if ($fileSize <= 209272152) {
+                        $fileRoot = 'users/' . $filename;
+                        move_uploaded_file($fileTmp, $fileRoot);
+                        return $fileRoot;
+                    }else{
+                        $GLOBALS['imageError'] = "The file size is too large";       
+                    }
+                }
+            }else{
+                $GLOBALS['imageError'] = "The extension is not allowed";
+            }
         }
+
+        
         public function checkUsername($username){
             $stmt = $this->pdo->prepare("SELECT `username` FROM `users` WHERE `username` = :username");
             $stmt->bindParam(":username",$username, PDO::PARAM_STR);
@@ -119,6 +146,19 @@
                 return true;
             }
             else{
+                return false;
+            }
+        }
+
+        public function checkPassword($password){
+            $stmt = $this->pdo->prepare("SELECT 'password' FROM 'users' WHERE 'password' = :password");
+            $stmt->bindParam(":password", $password,PDO::PARAM_STR);
+            $stmt->execute();
+
+            $count = $stmt->rowCount();
+            if($count > 0){
+                return true;
+            }else{
                 return false;
             }
         }

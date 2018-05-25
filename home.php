@@ -3,7 +3,7 @@
     $user_id = $_SESSION['user_id'];
 	$user = $getFromU->userData($user_id);
 	if($getFromU->loggedIn() === false){
-		header("Location: index.php");
+		header('Location: index.php');
 	}
 	//$getFromU->update('users', $user_id, array('username' => 'chiranjeev'));
 	//$getFromU->update('users', $user_id, array('username' => 'chrnjvdbnth', 'email' => 'chiranjeevdebnath99@gmail.com'));
