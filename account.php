@@ -36,7 +36,7 @@
 ?>
 <html>
 	<head>
-		<title>Account settings page</title>
+		<title>Password settings page</title>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -106,8 +106,8 @@
 						<img src="<?php echo BASE_URL.$user->profileImage;?>"/>
 					</div>
 					<div class="acc-info-name">
-						<h3><?php echo BASE_URL.$user->screenName;?></h3>
-						<span><a href="<?php echo BASE_URL.$user->username;?>"><?php echo $user->username;?></a></span>
+						<h3><?php echo $user->screenName;?></h3>
+						<span><a href="<?php echo BASE_URL.$user->username;?>">@<?php echo $user->username?></a></span>
 					</div>
 				</div><!--Acc info wrap end-->
 
