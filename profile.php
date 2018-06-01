@@ -126,7 +126,7 @@
 	<div class="edit-button">
 		<span>
 			<?php 
-				$getFromF->followBtn($profileId,$user_id);
+				echo $getFromF->followBtn($profileId,$user_id,$profileData->user_id);
 			?>
 		</span>
 	</div>
@@ -356,14 +356,16 @@
 			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/fetch.js"></script>
 			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
 			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
-			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/follow.js"></script>
+			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
+			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
 </div>
 <!-- in center end -->
 
 <div class="in-right">
 	<div class="in-right-wrap">
-			
+		<?php $getFromF->whoToFollow($user_id, $profileId);?>
 		<!--==WHO TO FOLLOW==-->
+		
 	      <!--who to follow-->
 		<!--==WHO TO FOLLOW==-->
 			
@@ -373,6 +375,8 @@
 			
 	</div><!-- in right wrap-->
 </div>
+			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/follow.js"></script>
+
 <!-- in right end -->
 
 		</div>

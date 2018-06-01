@@ -57,7 +57,7 @@
 			<ul>
 				<li><a href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 				<li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-				<li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+				<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
 			</ul>
 		</div><!-- nav left ends-->
 
@@ -116,7 +116,7 @@
 					</div><!--  in b box end-->
 					<div class="info-body-name">
 						<div class="in-b-name">
-							<div><a href="<?php echo $user->screenName; ?>"><?php echo $user->screenName; ?></a></div>
+							<div><a href="<?php echo $user->username; ?>"><?php echo $user->screenName; ?></a></div>
 							<span><small><a href="<?php echo $user->username; ?>">@<?php echo $user->username; ?></a></small></span>
 						</div><!-- in b name end-->
 					</div><!-- info body name end-->
@@ -213,19 +213,22 @@
 			<script type="text/javascript" src="assets/js/comment.js"></script>
 			<script type="text/javascript" src="assets/js/delete.js"></script>
 			<script type="text/javascript" src="assets/js/fetch.js"></script>
-		</div><!-- in left wrap-->
+			<script type="text/javascript" src="assets/js/messages.js"></script>
+			<script type="text/javascript" src="assets/js/postMessage.js"></script>
+	</div><!-- in left wrap-->
 		</div><!-- in center end -->
 
 		<div class="in-right">
 			<div class="in-right-wrap">
 
 		 	<!--Who To Follow-->
-		      <!--WHO_TO_FOLLOW HERE-->
+		      <?php $getFromF->whoToFollow($user_id,$user_id);?>
       		<!--Who To Follow-->
 
  			</div><!-- in left wrap-->
 
 		</div><!-- in right end -->
+		<script type="text/javascript" src="assets/js/follow.js"></script>
 
 	</div><!--in full wrap end-->
 
