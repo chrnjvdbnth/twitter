@@ -6,6 +6,7 @@
         $profileData = $getFromU->userData($profileId);
         $user_id = $_SESSION['user_id'];
         $user = $getFromU->userData($user_id);
+        $notify = $getFromM->getNotificationCount($user_id);
 
         if ($getFromU->loggedIn()=== false) {
             header('Location:'.BASE_URL.'index.php');
@@ -23,7 +24,7 @@
     <head>
         <title>People following <?php echo $profileData->screenName. '(@'.$profileData->username. ')';?> </title>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="assets/css/style-complete.css"/>
+        <link rel="stylesheet" href="<?php echo BASE_URL;?>assets/css/style-complete.css"/>
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>       
 
@@ -38,9 +39,9 @@
         <div class="nav-left">
             <ul>
                 <li><a href="<?php echo BASE_URL; ?>home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-                <?php if($getFromU->loggedIn()=== true) {?>
-                <li><a href="<?php echo BASE_URL; ?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-                <li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+               <?php if($getFromU->loggedIn()=== true) {?>
+                <li><a href="<?php echo BASE_URL;?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification<span id="notification"><?php if($notify->totalN > 0){echo '<span class="span-i">'.$notify->totalN.'</span>';}?></span></a></li>
+                <li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages<span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i">'.$notify->totalM.'</span>';}?></span></li>
                 <?php }?> 
             </ul>
         </div><!-- nav left ends-->
@@ -228,7 +229,7 @@
     </div>
     <!-- whoTo Follow-->
     <?php $getFromF->whoToFollow($user_id,$user_id); ?>
-    
+    <?php $getFromT->trends();?>
     <!-- trends -->
 </div>
 
@@ -260,6 +261,7 @@
         <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/notification.js"></script>
 
 
         <!--FOLLOWING OR FOLLOWER FULL WRAPPER END-->   

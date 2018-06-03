@@ -3,12 +3,14 @@
         include 'core/init.php';
         $username = $getFromU->checkInput($_GET['username']);
         $profileId = $getFromU->userIdByUsername($username);
-        $profileData = $getFromU->userData($profileId);
-        $user_id = $_SESSION['user_id'];
+		$profileData = $getFromU->userData($profileId);
+		$user_id = @$_SESSION['user_id'];
+		
         $user = $getFromU->userData($user_id);
+        $notify = $getFromM->getNotificationCount($user_id);
 
         if(!$profileData){
-            header("Location: index.php");
+            header('Location: '.BASE_URL.'index.php');
         }
     }
 ?>
@@ -19,10 +21,10 @@
 <!doctype html>
 <html>
 	<head>
-		<title>twitter</title>
+		<title><?php echo $profileData->screenName.'(@'.$profileData->username.')';?></title>
 		<meta charset="UTF-8" />
  		<link rel="stylesheet" href="assets/css/style-complete.css"/>
-   		<link rel="stylesheet" href="<?php echo BASE_URL; ?>https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
+   		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
 
     </head>
@@ -30,15 +32,15 @@
 <body>
 <div class="wrapper">
 <!-- header wrapper -->
-<div class="header-wrapper">	
+<div class="header-wrapper">
 	<div class="nav-container">
     	<div class="nav">
 		<div class="nav-left">
 			<ul>
 				<li><a href="<?php echo BASE_URL; ?>home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 				<?php if($getFromU->loggedIn()=== true) {?>
-				<li><a href="<?php echo BASE_URL; ?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-				<li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+				<li><a href="<?php echo BASE_URL;?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification<span id="notification"><?php if($notify->totalN > 0){echo '<span class="span-i">'.$notify->totalN.'</span>';}?></span></a></li>
+				<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages<span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i">'.$notify->totalM.'</span>';}?></span></li>
 				<?php }?> 
 			</ul>
 		</div><!-- nav left ends-->
@@ -149,7 +151,7 @@
 
 		<div class="profile-name-wrap">
 			<div class="profile-name">
-				<a href="<?php echo BASE_URL.$profileData->profileCover; ?>"><?php echo $profileData->screenName; ?></a>
+				<a href="<?php echo BASE_URL.$profileData->username; ?>"><?php echo $profileData->screenName; ?></a>
 			</div>
 			<div class="profile-tname">
 				@<span class="username"><?php echo $profileData->username; ?></span>
@@ -264,7 +266,7 @@
                         <div class="t-h-c-name">
                             <span><a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></span>
                             <span>@'.$user->username.'</span>
-                            <span>'.$getFromU->timeAgo($tweet->postedOn).'</span>
+                            <span>'.$tweet->postedOn.'</span>
                         </div>
                         <div class="t-h-c-dis">
                             '.$getFromT->getTweetLinks($tweet->retweetMsg).'
@@ -282,7 +284,7 @@
                                 <div class="t-h-c-name">
                                     <span><a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></span>
                                     <span>@'.$tweet->username.'</span>
-                                    <span>'.$getFromU->timeAgo($retweet['postedOn']).'</span>
+                                    <span>'.$retweet['postedOn'].'</span>
                                 </div>
                                 <div class="retweet-t-s-b-inner-right-text">		
                                     '.$getFromT->getTweetLinks($tweet->status).'
@@ -301,7 +303,7 @@
                                 <div class="t-h-c-name">
                                     <span><a href="'.$tweet->username.'">'.$tweet->screenName.'</a></span>
                                     <span>@'.$tweet->username.'</span>
-                                    <span>'.$getFromU->timeAgo($retweet['postedOn']).'</span>
+                                    <span>'.$tweet->postedOn.'</span>
                                 </div>
                                 <div class="t-h-c-dis">
                                 '.$getFromT->getTweetLinks($tweet->status).'
@@ -358,6 +360,8 @@
 			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
 			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
+			<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/notification.js"></script>
+
 </div>
 <!-- in center end -->
 
@@ -370,7 +374,7 @@
 		<!--==WHO TO FOLLOW==-->
 			
 		<!--==TRENDS==-->
-	 	   <!--Trends-->
+	 	   <?php $getFromT->trends();?>
 	 	<!--==TRENDS==-->
 			
 	</div><!-- in right wrap-->
